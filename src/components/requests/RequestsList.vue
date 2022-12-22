@@ -2,8 +2,8 @@
   <request-item
     v-for="item in requests"
     :key="item.id"
-    :student="item.student"
-    :subject="item.subject"
+    :name="item.name"
+    :title="item.title"
     :description="item.description"
     :email="item.email"
   ></request-item>
@@ -19,6 +19,9 @@ export default {
   computed: {
     requests() {
       console.log(this.$store);
+      if (this.$store.getters['requests/filtered']) {
+        return this.$store.getters['requests/filtered'];
+      }
       return this.$store.getters['requests/items'];
     },
   },

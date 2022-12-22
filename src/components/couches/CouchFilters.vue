@@ -1,31 +1,31 @@
 <template>
   <div class="w-100 row justify-content-between my-2">
-    <coach-filter-by-field
+    <couch-filter-by-field
       @set-field="setField"
       :fields="fields"
-    ></coach-filter-by-field>
-    <coach-filter-by-search
+    ></couch-filter-by-field>
+    <couch-filter-by-search
       :search="search"
       @set-search="setSearch"
-    ></coach-filter-by-search>
+    ></couch-filter-by-search>
     <div class="mt-2"></div>
-    <coach-filter-by-tags
+    <couch-filter-by-tags
       @set-tags="setTags"
       :tags="availableTags"
-    ></coach-filter-by-tags>
+    ></couch-filter-by-tags>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import CoachFilterByField from './CoachFilterByField.vue';
-import CoachFilterBySearch from './CoachFilterBySearch.vue';
-import CoachFilterByTags from './CoachFilterByTags.vue';
+import CouchFilterByField from './CouchFilterByField.vue';
+import CouchFilterBySearch from './CouchFilterBySearch.vue';
+import CouchFilterByTags from './CouchFilterByTags.vue';
 export default {
   components: {
-    CoachFilterByField,
-    CoachFilterBySearch,
-    CoachFilterByTags,
+    CouchFilterByField,
+    CouchFilterBySearch,
+    CouchFilterByTags,
   },
   data() {
     return {
@@ -64,14 +64,6 @@ export default {
       this.filterCoaches({
         search: this.search,
         tags: tags,
-        field: this.field,
-      });
-    },
-    searchCoaches(search) {
-      console.log(search);
-      this.filterCoaches({
-        search,
-        tags: this.tags,
         field: this.field,
       });
     },

@@ -7,7 +7,7 @@
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">
-            <router-link :to="{ name: 'coach-item', params: { coachID: 1 } }">
+            <router-link :to="{ name: 'coach-item', params: { coachID: id } }">
               {{ name }}
             </router-link>
           </h5>
@@ -33,7 +33,9 @@
           <div class="badges">
             <span
               class="badge bg-secondary mx-1 cursor-pointer"
+              style="cursor: pointer"
               v-for="item in tags"
+              @click="setSelectedTag(item.name)"
               :key="item.id"
             >
               {{ item.name }}
@@ -82,21 +84,38 @@ export default {
     },
   },
 
-  created: function () {
-    // console.log(this.tags);
+  data() {
+    return {
+      selectedTag: null,
+    };
   },
-
+  created: function () {
+    console.log(this.tags);
+    if (this.tags && this.tags.length > 0) {
+      this.setSelectedTag(this.tags[0].name);
+    } else {
+      this.setSelectedTag(null);
+    }
+  },
+  methods: {
+    setSelectedTag(name) {
+      console.log(name, this.tags);
+      if (name && this.tags) {
+        this.selectedTag = this.tags?.find((item) => item.name === name);
+      }
+    },
+    // selectedTag() {
+    //   if (this.tags && this.tags.length > 0) {
+    //     return this.tags[0];
+    //   } else {
+    //     return null;
+    //   }
+    //   // return  this.tags[0] : null;
+    // },
+  },
   computed: {
     name() {
       return this.first_name + ' ' + this.last_name;
-    },
-    selectedTag() {
-      if (this.tags && this.tags.length > 0) {
-        return this.tags[0];
-      } else {
-        return null;
-      }
-      // return  this.tags[0] : null;
     },
   },
 };

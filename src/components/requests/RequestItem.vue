@@ -1,16 +1,16 @@
 <template>
   <div class="card">
-    <div class="card-header">{{ student }}</div>
+    <div class="card-header">{{ name }}</div>
     <div class="card-body">
-      <h5 class="card-title">{{ subject }}</h5>
+      <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ description }}</p>
-      <a href="#" class="btn btn-primary">{{ email }}</a>
+      <a :href="'mailto:' + email" class="btn btn-primary">{{ email }}</a>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['student', 'description', 'subject', 'email'],
+  props: ['name', 'description', 'title', 'email'],
 };
 </script>

@@ -1,21 +1,22 @@
+import getters from "./getters";
+import actions from "./actions";
+import mutations from "./mutations";
+
 export default {
   namespaced: true,
   state() {
     return {
       items: [
         {
-          student: "Client name",
-          subject: "Message title",
-          description: "description of what student wants",
+          name: "Client name",
+          title: "Message title",
+          message: "description of what student wants",
           email: "student@coach.com",
         }
       ]
     }
   },
-  getters: {
-    items(state) {
-      console.log(state);
-      return state.items;
-    }
-  }
+  getters,
+  actions,
+  mutations
 };  

@@ -1,12 +1,18 @@
 <template>
-  <div class="progress" @click="onClick">
+  <div class="progress-text">
+    <div class="row">
+      <div class="col-6 fw-bold">{{ name }}</div>
+      <div class="col-6 text-end">{{ value }}%</div>
+    </div>
+  </div>
+  <div class="custom-progress progress rounded-3" @click="onClick">
     <div
-      class="progress-bar"
-      role="progressbar"
+      class="animated custom-bar progress-bar bg-secondary slideInLeft"
       :style="{ width: value + '%', 'pointer-events': 'none' }"
-      :aria-valuenow="value"
-      aria-valuemin="0"
       aria-valuemax="100"
+      aria-valuemin="0"
+      :aria-valuenow="value"
+      role="progressbar"
     ></div>
   </div>
 </template>
@@ -14,7 +20,7 @@
 <script>
 export default {
   emits: ['setValue'],
-  props: ['value'],
+  props: ['value', 'name'],
   methods: {
     onClick(e) {
       let position;

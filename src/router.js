@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import Home from "./pages/Home.vue";
-import Coaches from "./pages/Coaches.vue";
+import Couches from "./pages/Couches.vue";
 import CoachDetails from "./pages/CoachDetails.vue";
 import Requests from "./pages/Requests.vue";
-import Contact from "./pages/Contact.vue";
-import Register from "./pages/Register.vue";
+import CouchContact from "./pages/CouchContact.vue";
+import CouchRegister from "./pages/CouchRegister.vue";
 
 const routes = [
   {
@@ -16,26 +16,26 @@ const routes = [
   {
     name: 'coaches',
     path: '/coaches',
-    component: Coaches,
+    component: Couches,
+  },
+  {
+    name: 'coach-item',
+    path: '/couches/:coachID',
+    component: CoachDetails,
+    props: true,
     children: [
       {
-        name: 'coach-item',
-        path: ':coachID',
-        component: CoachDetails,
-        children: [
-          {
-            name: 'contact',
-            path: '/contact',
-            component: Contact,
-          },
-        ]
+        name: 'coach-contact',
+        path: 'contact',
+        component: CouchContact,
+        props: true
       },
     ]
   },
   {
     name: 'register',
     path: '/register',
-    component: Register,
+    component: CouchRegister,
   },
   {
     name: 'requests',
@@ -51,7 +51,11 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes: routes,
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 }
+  },
 });
 
 export default router;

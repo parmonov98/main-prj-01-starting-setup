@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center">
-    <coach-item
+    <couch-item
       v-for="item in coaches"
       :key="item.id"
       :id="item.id"
@@ -8,19 +8,20 @@
       :last_name="item.last_name"
       :photo="item.photo"
       :description="item.description"
-      :tags="item.tags"
+      :tags="item.tags ?? []"
       :field="item.field"
       :email="item.email"
-    ></coach-item>
+    ></couch-item>
   </div>
 </template>
 
 <script>
-import CoachItem from './CoachItem.vue';
+import CouchItem from './CouchItem.vue';
 export default {
   components: {
-    CoachItem,
+    CouchItem,
   },
+
   computed: {
     coaches() {
       if (this.$store.getters['coach/filtered'] != null) {
