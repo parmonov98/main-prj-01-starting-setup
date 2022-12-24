@@ -61,6 +61,7 @@
         </form> -->
 
         <ul
+          v-if="isAuthed"
           class="
             nav
             col-12 col-lg-auto
@@ -78,17 +79,49 @@
           </li>
           <li>
             <router-link
-              class="nav-link px-2 btn btn-warning"
-              :to="{ name: 'register' }"
+              link
+              class="nav-link px-2"
+              :to="{ name: 'couches-register' }"
             >
               Register
             </router-link>
           </li>
 
-          <!-- <button type="button" class="btn btn-outline-light me-2">
-            Login
-          </button>
-          <button type="button" class="btn btn-warning">Sign-up</button> -->
+          <li>
+            <base-button @click="logout" class="nav-link mx-2 btn btn-danger">
+              Logout
+            </base-button>
+          </li>
+        </ul>
+
+        <ul
+          v-else
+          class="
+            nav
+            col-12 col-lg-auto
+            ms-lg-auto
+            mb-2
+            justify-content-start
+            mb-md-0
+            text-end
+          "
+        >
+          <li>
+            <router-link
+              class="btn btn-outline-light me-2"
+              :to="{ name: 'sign-in' }"
+            >
+              Sign in
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              class="nav-link px-2 btn btn-warning"
+              :to="{ name: 'sign-up' }"
+            >
+              Sign up
+            </router-link>
+          </li>
         </ul>
       </div>
     </div>
@@ -96,9 +129,20 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import BaseButton from '../UI/BaseButton.vue';
 export default {
-  
-}
+  components: { BaseButton },
+  afterMount: function () {
+    console.log(this.isAuthed);
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthed']),
+  },
+  methods: {
+    ...mapActions('auth', ['tryLogin', 'logout']),
+  },
+};
 </script>
 
 <style scoped>

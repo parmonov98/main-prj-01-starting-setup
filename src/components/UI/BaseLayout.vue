@@ -1,16 +1,18 @@
 <template>
-  <header class="header" v-if="hasHeaderSlot">
-    <slot name="header"></slot>
-  </header>
-  <the-header v-else></the-header>
+  <div class="layout">
+    <header class="header" v-if="hasHeaderSlot">
+      <slot name="header"></slot>
+    </header>
+    <the-header v-else></the-header>
 
-  <main class="container mt-5 mb-3">
-    <slot></slot>
-  </main>
+    <main class="container mt-5 mb-3">
+      <slot name="default"></slot>
+    </main>
 
-  <footer class="footer" v-if="hasFooterSlot">
+    <!-- <footer class="footer" v-if="hasFooterSlot">
     <slot name="footer"></slot>
-  </footer>
+  </footer> -->
+  </div>
 </template>
 
 <script>

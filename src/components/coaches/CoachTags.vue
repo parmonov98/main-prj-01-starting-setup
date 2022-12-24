@@ -1,29 +1,31 @@
 <template>
-  <input
-    class="form-control"
-    id="tags"
-    type="text"
-    :class="{ 'is-invalid': !valid }"
-    placeholder="Enter tags"
-    :value="currentTag.name"
-    @keyup="onChangeCurrentTag"
-    :data-id="currentTag.id"
-    @keydown.enter.prevent="onSubmitCurrentTag($event)"
-  />
+  <div>
+    <input
+      class="form-control"
+      id="tags"
+      type="text"
+      :class="{ 'is-invalid': !valid }"
+      placeholder="Enter tags"
+      :value="currentTag.name"
+      @keyup="onChangeCurrentTag"
+      :data-id="currentTag.id"
+      @keydown.enter.prevent="onSubmitCurrentTag($event)"
+    />
 
-  <progress-bar
-    @setValue="onChangeProgress"
-    :name="currentTag.name"
-    :value="currentTag.value"
-  ></progress-bar>
-  <span
-    class="badge bg-secondary mx-1"
-    style="cursor: pointer"
-    v-for="item in tags"
-    :key="item.id"
-    @click="setCurrentTag(item.id)"
-    >{{ item.name }}</span
-  >
+    <progress-bar
+      @setValue="onChangeProgress"
+      :name="currentTag.name"
+      :value="currentTag.value"
+    ></progress-bar>
+    <span
+      class="badge bg-secondary mx-1"
+      style="cursor: pointer"
+      v-for="item in tags"
+      :key="item.id"
+      @click="setCurrentTag(item.id)"
+      >{{ item.name }}</span
+    >
+  </div>
 </template>
 
 <script>

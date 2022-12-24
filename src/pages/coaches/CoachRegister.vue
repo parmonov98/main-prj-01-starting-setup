@@ -2,12 +2,7 @@
   <base-layout>
     <h2>Register</h2>
     <div>
-      <div class="modal fade show" v-if="isLoading">
-        <div class="modal-dialog modal-dialog-centered">
-          <base-spinner></base-spinner>
-        </div>
-      </div>
-
+      <base-loading-panel v-if="isLoading"></base-loading-panel>
       <!-- Bootstrap 5 starter form -->
       <form id="contactForm" @submit.prevent="onSubmit">
         <!-- :class="{ 'was-validated': isFormValidadated }" -->
@@ -95,11 +90,11 @@
         <!-- Tags input -->
         <div class="mb-3">
           <label class="form-label" for="tags">Tags</label>
-          <couch-tags
+          <coach-tags
             @set-tags="setTags"
             :valid="firstName.isValid"
             @focusin="clearValidity('tags')"
-          ></couch-tags>
+          ></coach-tags>
           <div class="invalid-feedback">Please, enter tags</div>
         </div>
 
@@ -128,10 +123,9 @@
 </template>
 
 <script>
-import CouchTags from '../components/couches/CouchTags.vue';
-import BaseSpinner from '../components/UI/BaseSpinner.vue';
+import CoachTags from '../../components/coaches/CoachTags.vue';
 export default {
-  components: { CouchTags, BaseSpinner },
+  components: { CoachTags },
   data() {
     return {
       firstName: {

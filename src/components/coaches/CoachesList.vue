@@ -1,9 +1,9 @@
 <template>
-  <div class="row justify-content-center">
-    <couch-item
+  <div class="row justify-content-center" v-if="hasCoaches">
+    <coach-item
       v-for="item in coaches"
       :key="item.id"
-      :id="item.id"
+      :id="item.userId"
       :first_name="item.first_name"
       :last_name="item.last_name"
       :photo="item.photo"
@@ -11,25 +11,21 @@
       :tags="item.tags ?? []"
       :field="item.field"
       :email="item.email"
-    ></couch-item>
+    ></coach-item>
   </div>
+  <div v-else class="no-item-found">No coaches found</div>
 </template>
 
 <script>
-import CouchItem from './CouchItem.vue';
+import { mapGetters } from 'vuex';
+import CoachItem from './CoachItem.vue';
 export default {
   components: {
-    CouchItem,
+    CoachItem,
   },
 
   computed: {
-    coaches() {
-      if (this.$store.getters['coach/filtered'] != null) {
-        return this.$store.getters['coach/filtered'];
-      } else {
-        return this.$store.getters['coach/items'];
-      }
-    },
+    ...mapGetters('coach', ['coaches', 'hasCoaches']),
   },
 };
 </script>

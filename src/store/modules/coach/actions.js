@@ -7,24 +7,28 @@ export default {
     } else {
       const data = await resData.json();
       const items = [];
-      Object.keys(data).map((key) => {
-        const element = data[key];
-        items.push({
-          id: key, ...element
-        })
-      });
-      commit('setItems', items);
-      return true;
+      if (data) {
+        Object.keys(data).map((key) => {
+          const element = data[key];
+          items.push({
+            id: key, ...element
+          })
+        });
+        commit('setItems', items);
+        return items;
+      }
+      return false;
     }
   },
   async addCoach(context, payload) {
-    console.log(payload);
-    const resData = await fetch('https://vuejs-df53b-default-rtdb.europe-west1.firebasedatabase.app/coach_finder-coaches.json', {
+    const token = context.rootGetters['auth/token'];
+    const userId = context.rootGetters['auth/userId'];
+    const resData = await fetch(`https://vuejs-df53b-default-rtdb.europe-west1.firebasedatabase.app/coach_finder-coaches.json?auth=` + token, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ ...payload, userId })
     });
 
     if (resData.ok) {
@@ -91,7 +95,7 @@ export default {
   },
   getGoach({ commit, dispatch, state }, payload) {
     dispatch('getCoaches');
-    const coach = state.items.find(item => item.id === payload);
+    const coach = state.items.find(item => item.userId === payload);
     if (coach) {
       commit('setCoach', coach);
     }

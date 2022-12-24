@@ -77,7 +77,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import BaseButton from '../components/UI/BaseButton.vue';
+import BaseButton from '../../components/UI/BaseButton.vue';
 export default {
   components: { BaseButton },
   props: ['coachID'],

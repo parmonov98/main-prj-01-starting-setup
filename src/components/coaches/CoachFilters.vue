@@ -1,31 +1,31 @@
 <template>
   <div class="w-100 row justify-content-between my-2">
-    <couch-filter-by-field
+    <coach-filter-by-field
       @set-field="setField"
       :fields="fields"
-    ></couch-filter-by-field>
-    <couch-filter-by-search
+    ></coach-filter-by-field>
+    <coach-filter-by-search
       :search="search"
       @set-search="setSearch"
-    ></couch-filter-by-search>
+    ></coach-filter-by-search>
     <div class="mt-2"></div>
-    <couch-filter-by-tags
+    <coach-filter-by-tags
       @set-tags="setTags"
       :tags="availableTags"
-    ></couch-filter-by-tags>
+    ></coach-filter-by-tags>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import CouchFilterByField from './CouchFilterByField.vue';
-import CouchFilterBySearch from './CouchFilterBySearch.vue';
-import CouchFilterByTags from './CouchFilterByTags.vue';
+import CoachFilterByField from './CoachFilterByField.vue';
+import CoachFilterBySearch from './CoachFilterBySearch.vue';
+import CoachFilterByTags from './CoachFilterByTags.vue';
 export default {
   components: {
-    CouchFilterByField,
-    CouchFilterBySearch,
-    CouchFilterByTags,
+    CoachFilterByField,
+    CoachFilterBySearch,
+    CoachFilterByTags,
   },
   data() {
     return {
@@ -33,9 +33,6 @@ export default {
       tags: [],
       field: '',
     };
-  },
-  mounted: function () {
-    console.log(this.availableTags);
   },
   computed: {
     ...mapGetters('coach', ['availableTags', 'searchString', 'fields']),

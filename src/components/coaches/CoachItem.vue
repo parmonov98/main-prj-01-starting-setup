@@ -90,7 +90,6 @@ export default {
     };
   },
   created: function () {
-    console.log(this.tags);
     if (this.tags && this.tags.length > 0) {
       this.setSelectedTag(this.tags[0].name);
     } else {
@@ -99,7 +98,6 @@ export default {
   },
   methods: {
     setSelectedTag(name) {
-      console.log(name, this.tags);
       if (name && this.tags) {
         this.selectedTag = this.tags?.find((item) => item.name === name);
       }

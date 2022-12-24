@@ -1,25 +1,44 @@
 export default {
-  async getRequests({ commit }) {
-    const resData = await fetch('https://vuejs-df53b-default-rtdb.europe-west1.firebasedatabase.app/coach_finder-requests.json');
-    if (!resData.ok) {
-      commit('setItems', []);
-      return true;
+  async getRequests(context) {
+    const token = context.rootGetters['auth/token'];
+    const coachID = context.rootGetters['auth/userId'];
+    console.log(coachID);
+    const response = await fetch(`https://vuejs-df53b-default-rtdb.europe-west1.firebasedatabase.app/coach_finder-requests/${coachID}.json?auth=` + token);
+
+
+    if (!response.ok) {
+      let resData = null;
+      try {
+        resData = await response.json();
+      } catch (error) {
+        context.commit('setItems', []);
+      }
+      if (resData.error) {
+        return resData;
+      } else {
+        return true;
+      }
+
     } else {
-      const data = await resData.json();
+      const data = await response.json();
       const items = [];
-      Object.keys(data).map((key) => {
-        const element = data[key];
-        items.push({
-          id: key, ...element
-        })
-      });
-      commit('setItems', items);
-      return true;
+      if (data) {
+        Object.keys(data).map((key) => {
+          const element = data[key];
+          items.push({
+            id: key, ...element
+          })
+        });
+      }
+      context.commit('setItems', items);
+      return items;
     }
   },
   async addRequest(context, payload) {
-    console.log(payload);
-    const resData = await fetch('https://vuejs-df53b-default-rtdb.europe-west1.firebasedatabase.app/coach_finder-requests.json', {
+
+    const token = context.rootGetters['auth/token'];
+
+    const resData = await fetch(`https://vuejs-df53b-default-rtdb.europe-west1.firebasedatabase.app/coach_finder-requests/${payload.coachID}.json?auth=` + token, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -29,11 +48,12 @@ export default {
 
     if (resData.ok) {
       const data = await resData.json();
-      console.log(data);
+      return data;
     } else {
       console.error('Server error occured');
     }
     context.dispatch('getRequests');
+    return false;
   },
   filterRequests(context, payload) {
     const search = payload;

@@ -1,6 +1,10 @@
 <template>
   <base-layout>
     <template #header>
+      <base-loading-panel v-if="isLoading"></base-loading-panel>
+      <base-modal :show="!!error">
+        <p>{{ error }}</p>
+      </base-modal>
       <h2>Contact</h2>
       <div>
         <!-- Bootstrap 5 starter form -->
@@ -13,7 +17,7 @@
               id="name"
               type="text"
               placeholder="Name"
-              v-model="data.name"
+              v-model="name.val"
             />
           </div>
 
@@ -25,7 +29,7 @@
               id="email"
               type="email"
               placeholder="Email Address"
-              v-model="data.email"
+              v-model="email.val"
             />
           </div>
 
@@ -37,7 +41,7 @@
               id="Title"
               type="text"
               placeholder="Title"
-              v-model="data.title"
+              v-model="title.val"
             />
           </div>
 
@@ -50,7 +54,7 @@
               type="text"
               placeholder="Message"
               style="height: 10rem"
-              v-model="data.message"
+              v-model="message.val"
             ></textarea>
           </div>
 
@@ -70,25 +74,88 @@ export default {
   props: ['coachID'],
   data() {
     return {
-      data: {
-        name: '',
-        email: '',
-        title: '',
-        message: '',
+      name: {
+        val: '',
+        isValid: true,
       },
+      email: {
+        val: '',
+        isValid: true,
+      },
+      title: {
+        val: '',
+        isValid: true,
+      },
+      message: {
+        val: '',
+        isValid: true,
+      },
+      isLoading: false,
+      isFormValid: true,
+      error: null,
     };
   },
   methods: {
     ...mapActions('requests', ['addRequest']),
-    onSubmit() {
+    validateForm() {
+      this.isFormValid = true;
+
+      if (this.name.val === '') {
+        this.name.isValid = false;
+        this.isFormValid = false;
+      }
+
+      if (this.email.val === '') {
+        this.email.isValid = false;
+        this.isFormValid = false;
+      }
+
+      if (this.title.val === '') {
+        this.title.isValid = false;
+        this.isFormValid = false;
+      }
+
+      if (this.message.val === '') {
+        this.message.isValid = false;
+        this.isFormValid = false;
+      }
+
+      this.isFormValidadated = true;
+    },
+    async onSubmit() {
+      this.isLoading = true;
+      this.validateForm();
+      if (!this.isFormValid) {
+        return;
+      }
       console.log(this.data);
-      this.addRequest({ ...this.data, coachID: this.coachID });
-      this.data = {
-        name: '',
-        email: '',
-        title: '',
-        message: '',
+      console.log(this.coachID);
+
+      const response = await this.addRequest({
+        name: this.name.val,
+        email: this.email.val,
+        title: this.title.val,
+        message: this.message.val,
+        coachID: this.coachID,
+      });
+      console.log(response);
+      this.email = {
+        val: '',
+        isValid: true,
       };
+      this.name = {
+        val: '',
+        isValid: true,
+      };
+      this.title = {
+        val: '',
+        isValid: true,
+      };
+      this.message = {
+        val: '',
+        isValid: true,
+      };
+      this.isLoading = false;
     },
   },
 };
