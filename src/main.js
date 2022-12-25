@@ -9,6 +9,9 @@ import BaseButton from "./components/UI/BaseButton.vue";
 import ProgressBar from "./components/UI/ProgressBar";
 import BaseSpinner from "./components/UI/BaseSpinner.vue";
 import BaseModal from "./components/UI/BaseModal.vue";
+// const BaseModal = defineAsyncComponent(() => import("./components/UI/BaseModal.vue"));
+// const ProgressBar = defineAsyncComponent(() => import("./components/UI/ProgressBar.vue"));
+// const BaseSpinner = defineAsyncComponent(() => import("./components/UI/BaseSpinner.vue"));
 import BaseLoadingPanel from "./components/UI/BaseLoadingPanel.vue";
 
 const app = createApp(App);

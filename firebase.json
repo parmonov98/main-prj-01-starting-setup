@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "coach-finder-by-parmonov98",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
