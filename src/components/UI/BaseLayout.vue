@@ -1,14 +1,13 @@
 <template>
   <div class="layout">
-    <header class="header" v-if="hasHeaderSlot">
+    <!-- <header class="header" v-if="hasHeaderSlot">
       <slot name="header"></slot>
     </header>
-    <the-header v-else></the-header>
+    <the-header v-else></the-header> -->
 
-    <main class="container mt-5 mb-3">
+    <main class="main container mt-5 mb-3">
       <slot name="default"></slot>
     </main>
-
     <!-- <footer class="footer" v-if="hasFooterSlot">
     <slot name="footer"></slot>
   </footer> -->
@@ -16,9 +15,9 @@
 </template>
 
 <script>
-import TheHeader from '../layout/TheHeader.vue';
+// import TheHeader from '../layout/TheHeader.vue';
 export default {
-  components: { TheHeader },
+  // components: { TheHeader },
   computed: {
     hasHeaderSlot() {
       return !!this.$slots.header;

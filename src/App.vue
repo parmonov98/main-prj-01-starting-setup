@@ -1,5 +1,9 @@
 <template>
+  <the-header></the-header>
   <router-view v-slot="slotProps">
+    <!-- <header class="header" v-if="$slots.header">
+      <slot name="header"></slot>
+    </header> -->
     <transition name="layout" mode="out-in">
       <component :is="slotProps.Component"></component>
     </transition>
@@ -8,7 +12,9 @@
 
 <script>
 import { mapActions } from 'vuex';
+import TheHeader from './components/layout/TheHeader.vue';
 export default {
+  components: { TheHeader },
   created: async function () {
     await this.tryLogin();
   },
